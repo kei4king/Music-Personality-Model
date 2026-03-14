@@ -24,6 +24,26 @@ The model assumes that music preference emerges from how listeners perceive and 
 When musical patterns are predictable but still stimulating, listeners may experience reward responses.  
 MPM attempts to model this interaction between **musical structure** and **listener personality**.
 
+---
+
+## Architecture
+
+MPM is organized into three conceptual layers.
+
+Theory Layer
+    Defines the cognitive assumptions behind structure-based music preference.
+
+Personality Layer
+    Models listener perception across four musical dimensions:
+    melody, rhythm, timbre, and arrangement.
+
+Engineering Layer
+    Implements the inference pipeline used to evaluate music tracks and
+    predict reward compatibility.
+
+The model evaluates candidate tracks using a discovery pipeline that
+integrates external music catalogs (such as Spotify) with the MPM
+reward prediction model.
 
 ---
 
@@ -113,6 +133,9 @@ The demo allows users to:
 - generate a music personality profile
 - receive structure-based recommendations
 - analyze how MPM evaluates specific songs
+
+Demo access:
+https://chatgpt.com/g/g-69a92c5610788191be675d0135c4c8cd-music-personality-model-mpm-v8-demo
 
 ---
 
