@@ -1,6 +1,6 @@
 # Music Personality Model (MPM)
 
-MPM is an independent research prototype exploring structure-based music recommendation.
+MPM is **an independent research prototype** exploring structure-based music recommendation.
 
 Instead of relying primarily on user behavior similarity or genre classification, MPM attempts to model how listeners experience musical structure and predicts reward compatibility between a listener and a piece of music.
 
