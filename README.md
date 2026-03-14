@@ -1,11 +1,10 @@
 # Music Personality Model (MPM)
 
-MPM (Music Personality Model) is a research prototype exploring structure-based music recommendation.
+MPM is an independent research prototype exploring structure-based music recommendation.
 
 Instead of relying primarily on user behavior similarity or genre classification, MPM attempts to model how listeners experience musical structure and predicts reward compatibility between a listener and a piece of music.
 
 The project explores how cognitive mechanisms such as prediction, attention, and reward may influence music preference.
-
 
 ---
 
@@ -45,53 +44,79 @@ The model evaluates candidate tracks using a discovery pipeline that
 integrates external music catalogs (such as Spotify) with the MPM
 reward prediction model.
 
-## MPM Discovery Pipeline
+## MPM Architecture
 
 ```mermaid
 flowchart TD
 
-A[Spotify Candidate Generation]
-B[Signal Mapping Layer]
+subgraph THEORY["Theory Layer"]
+T1[Music Perception Theory]
+T2[Prediction-Based Reward]
+T3[Structural Listening Model]
+end
 
-C[Melody Signal]
-D[Rhythm Signal]
-E[Timbre Signal]
-F[Arrangement Signal]
+subgraph PERSONALITY["Personality Layer"]
+P1[LSQ Questionnaire]
+P2[Personality Scoring]
+P3[Listener Personality Vector\nWm Wr Wt Wa]
+end
 
-G[MPM Inference Engine]
+subgraph ENGINEERING["Engineering Layer"]
 
-H[Reward Prediction]
-I[Prediction Stability]
-J[Intro Reward Bank Check]
-K[Structural Chaos Detection]
+E1[Spotify Candidate Generation]
 
-L[Recommendation Safety Filter]
+E2[Signal Mapping]
 
-M[Final Recommendation]
+E3[Melody Signal]
+E4[Rhythm Signal]
+E5[Timbre Signal]
+E6[Arrangement Signal]
 
-A --> B
+E7[MPM Inference Engine]
 
-B --> C
-B --> D
-B --> E
-B --> F
+E8[Reward Prediction]
+E9[Prediction Stability]
+E10[Intro Reward Bank Check]
+E11[Structural Chaos Detection]
 
-C --> G
-D --> G
-E --> G
-F --> G
+E12[Recommendation Safety Filter]
 
-G --> H
-G --> I
-G --> J
-G --> K
+E13[Final Recommendation]
 
-H --> L
-I --> L
-J --> L
-K --> L
+end
 
-L --> M
+T1 --> P1
+T2 --> P1
+T3 --> P1
+
+P1 --> P2
+P2 --> P3
+
+P3 --> E7
+
+E1 --> E2
+
+E2 --> E3
+E2 --> E4
+E2 --> E5
+E2 --> E6
+
+E3 --> E7
+E4 --> E7
+E5 --> E7
+E6 --> E7
+
+E7 --> E8
+E7 --> E9
+E7 --> E10
+E7 --> E11
+
+E8 --> E12
+E9 --> E12
+E10 --> E12
+E11 --> E12
+
+E12 --> E13
 ```
 
 ---
