@@ -45,6 +45,54 @@ The model evaluates candidate tracks using a discovery pipeline that
 integrates external music catalogs (such as Spotify) with the MPM
 reward prediction model.
 
+## MPM Discovery Pipeline
+
+```mermaid
+flowchart TD
+
+A[Spotify Candidate Generation]
+B[Signal Mapping Layer]
+
+C[Melody Signal]
+D[Rhythm Signal]
+E[Timbre Signal]
+F[Arrangement Signal]
+
+G[MPM Inference Engine]
+
+H[Reward Prediction]
+I[Prediction Stability]
+J[Intro Reward Bank Check]
+K[Structural Chaos Detection]
+
+L[Recommendation Safety Filter]
+
+M[Final Recommendation]
+
+A --> B
+
+B --> C
+B --> D
+B --> E
+B --> F
+
+C --> G
+D --> G
+E --> G
+F --> G
+
+G --> H
+G --> I
+G --> J
+G --> K
+
+H --> L
+I --> L
+J --> L
+K --> L
+
+L --> M
+
 ---
 
 # Model Components
