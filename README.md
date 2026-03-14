@@ -209,7 +209,7 @@ The demo allows users to:
 - analyze how MPM evaluates specific songs
 
 Demo access:
-https://chatgpt.com/g/g-69a92c5610788191be675d0135c4c8cd-music-personality-model-mpm-v8-demo
+[click here](https://chatgpt.com/g/g-69a92c5610788191be675d0135c4c8cd-music-personality-model-mpm-demo)
 
 ---
 
