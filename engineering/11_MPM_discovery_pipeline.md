@@ -83,6 +83,13 @@ Candidate generation focuses on **coverage** rather than accuracy.
 
 Accuracy is handled by the MPM scoring stage.
 
+Candidate generation does not perform compatibility evaluation.
+
+All compatibility evaluation must be performed exclusively
+by the MPM inference engine defined in:
+
+09_MPM_inference_spec.md
+
 ---
 
 # 5 Candidate Filtering
