@@ -125,7 +125,7 @@ arrangement_signal
 
 The mapping process is defined in:
 
-06b_MPM_signal_mapping.md
+07_MPM_signal_mapping.md
 
 ---
 
@@ -148,7 +148,21 @@ These values represent the predicted listening experience.
 
 ---
 
-# 8 Recommendation Safety Filter
+# 8 Preference Filter
+
+Tracks may be filtered before inference if severe preference conflicts occur.
+
+Example filters:
+
+if intro_penalty ≥ 2.0
+→ reject track
+
+if timbre_penalty = 1
+→ reduce recommendation priority
+
+---
+
+# 9 Recommendation Safety Filter
 
 MPM uses a recommendation safety filter
 to avoid risky recommendations.
@@ -166,7 +180,7 @@ over recommendation volume.
 
 ---
 
-# 9 Ranking
+# 10 Ranking
 
 Remaining tracks are ranked by:
 
@@ -183,7 +197,7 @@ Typical recommendation list size:
 
 ---
 
-# 10 Recommendation Output
+# 11 Recommendation Output
 
 The final recommendation output includes:
 
@@ -199,11 +213,11 @@ Spotify link
 
 The output format is defined in:
 
-09_MPM_output_spec.md
+10_MPM_output_spec.md
 
 ---
 
-# 11 Design Principles
+# 12 Design Principles
 
 The MPM discovery system follows several principles.
 
@@ -223,7 +237,7 @@ rather than genre similarity.
 
 ---
 
-# 12 Summary
+# 13 Summary
 
 The discovery pipeline transforms the full music universe
 into a small set of high-quality recommendations.
