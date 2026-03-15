@@ -5,6 +5,21 @@ Layer: Engineering Layer
 
 ---
 
+# Structural Mode Detection (Post Mapping)
+
+Certain structural modes are inferred from
+Spotify Audio Features after signal mapping.
+
+Example:
+
+orchestral_index =
+instrumentalness × (1 − danceability) × (1 − speechiness)
+
+These proxy signals allow MPM to approximate
+structural categories without explicit genre labels.
+
+---
+
 # 1 Purpose
 
 This document defines how external music features
