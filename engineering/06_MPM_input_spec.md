@@ -20,6 +20,17 @@ is likely to experience a specific piece of music.
 
 ---
 
+# Missing Data Policy
+
+If structural signals or required variables are missing,
+the inference engine must not generate a predicted score.
+
+Instead it should return:
+
+prediction_status: insufficient_data
+
+---
+
 # 2 MPM Input Structure
 
 The MPM inference system receives the following inputs:
@@ -160,7 +171,19 @@ the inference process begins.
 
 The signal mapping process is defined in:
 
-06b_MPM_signal_mapping.md
+07_MPM_signal_mapping.md
+
+---
+
+## Signal Integrity Rule
+
+Signals must be derived from measurable features.
+
+If signal values cannot be obtained,
+the system must not fabricate estimated values.
+
+Instead it must lower prediction confidence
+or mark the prediction as uncertain.
 
 ---
 
@@ -231,7 +254,7 @@ MPM Output
 
 The inference process itself is defined in:
 
-08_MPM_inference_spec.md
+09_MPM_inference_spec.md
 
 ---
 
