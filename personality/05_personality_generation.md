@@ -108,6 +108,12 @@ mechanism.
 
 The MPM inference engine always operates on the continuous weight vector.
 
+Personality classification is optional and must not influence
+the inference calculation.
+
+Only the numerical perception weights
+(Wm, Wr, Wt, Wa) may affect prediction.
+
 ---
 
 # 6 Default Personality (user0)
