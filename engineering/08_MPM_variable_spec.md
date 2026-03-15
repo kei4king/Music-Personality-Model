@@ -725,6 +725,15 @@ arrangement
 
 ---
 
+## Variable Usage Rule
+
+All reward, prediction, and failure variables defined
+in this document must be used during inference.
+
+Skipping variable evaluation is not allowed.
+
+---
+
 # 11 Summary
 
 The MPM variable system describes structural perception,
