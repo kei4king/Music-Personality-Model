@@ -1,6 +1,6 @@
 # MPM Signal Mapping Specification
 
-Version: v8  
+Version: v8.2  
 Layer: Engineering Layer
 
 ---
