@@ -3,14 +3,23 @@
 
 ## 10 seed songs:
 Static-X - Otsegolectric
+
 Universum - Faded
+
 Scar Symmetry - Reborn
+
 Sonic Syndicate - Jack of Diamonds
+
 The Unguided - Phoenix Down (Zardonic Remix)
+
 Alien Vampires - No Way Back (CyGnosic Mix)
+
 Feint - Snake Eyes feat. CoMa_Monstercat_Release
+
 Lemon Fight - Stronger (feat. Jessica Reynoso) 
+
 Rammstein - Feuer Frei
+
 Sybreed - Doomsday Party
 
 ## Spotify recommand:
