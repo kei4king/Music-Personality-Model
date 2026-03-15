@@ -240,7 +240,7 @@ standard inference output.
 
 ---
 
-Score Interpretation
+## Score Interpretation
 
 MPM scores follow a 1–7 scale.
 
@@ -257,6 +257,25 @@ Score meanings:
 
 In most listening scenarios,
 the majority of tracks will cluster near score 4.
+
+---
+
+# Explanation Constraint
+
+All explanations must reference variables defined in:
+
+08_MPM_variable_spec.md
+
+Allowed explanation variables include:
+
+reward_density
+reward_peak_intensity
+chaos_penalty
+intro_latency
+IRBC
+
+Explanations based on genre labels, popularity,
+or subjective musical judgement are not allowed.
 
 ---
 
