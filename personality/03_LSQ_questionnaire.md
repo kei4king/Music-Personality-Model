@@ -33,6 +33,18 @@ that are later used by the MPM inference system.
 
 ---
 
+## Prediction Constraint
+
+Music prediction must depend only on:
+
+listener perception weights
+structural signals
+
+Genre labels or cultural associations
+must not influence prediction.
+
+---
+
 # 2 Response Scale
 
 Each question should be answered using a **1–7 Likert scale**.
