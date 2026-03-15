@@ -1,263 +1,350 @@
-# MPM Variable Specification
+# MPM Inference Specification
 
-Version: v8  
+Version: v8
 Layer: Engineering Layer
 
 ---
 
 # 1 Purpose
 
-This document defines the structural variables used by the
+This document defines the inference logic used by the
 Music Personality Model (MPM).
 
-These variables describe perceptual signals,
-prediction dynamics, reward generation,
-and failure mechanisms during music listening.
+The inference system estimates how a listener will experience
+a piece of music by simulating the interaction between:
+
+• structural signals  
+• listener personality weights  
+• prediction dynamics  
+• reward generation  
+• engagement failure mechanisms  
+
+The goal of the inference system is to estimate:
+
+predicted_reward  
+recommendation_safety
+
+The final recommendation decision is based on these outputs.
 
 ---
 
-# 2 Variable Categories
+# 2 Inference Pipeline
 
-MPM variables are divided into the following categories:
+The MPM inference process follows the pipeline below:
 
-perception variables  
-prediction variables  
-reward variables  
-failure variables  
-recommendation variables
+Music Feature Input  
+↓  
+Signal Mapping  
+↓  
+Structural Signal Evaluation  
+↓  
+Prediction Modeling  
+↓  
+Reward Generation  
+↓  
+Failure Detection  
+↓  
+Reward Bank Accumulation  
+↓  
+Recommendation Safety Evaluation
 
-Each category corresponds to a different stage of the listening process.
+Signal mapping is defined in:
+
+07_MPM_signal_mapping.md
+
+Variables are defined in:
+
+08_MPM_variable_spec.md
 
 ---
 
-# 3 Perception Variables
+# 3 Structural Signal Evaluation
 
-Perception variables represent structural signals
-detected by the listener.
+The signal mapping layer produces four primary perception signals:
 
-These signals form the foundation of reward generation.
+melody_signal  
+rhythm_signal  
+timbre_signal  
+arrangement_signal  
+
+These signals represent the structural properties of the track.
+
+Each signal is normalized to the range:
+
+0.0 – 1.0
 
 ---
 
-## melody_signal
+# 4 Personality Weight Interaction
 
-Represents the presence and clarity of melodic structure.
+Listener personality determines how strongly each signal
+influences the listening experience.
 
-Examples:
+The listener is represented by four perception weights:
 
+Wm — melody sensitivity  
+Wr — rhythm sensitivity  
+Wt — timbre sensitivity  
+Wa — arrangement sensitivity  
+
+Structural signals are transformed into listener-specific
+perception strength:
+
+melody_perception = melody_signal × Wm  
+rhythm_perception = rhythm_signal × Wr  
+timbre_perception = timbre_signal × Wt  
+arrangement_perception = arrangement_signal × Wa  
+
+These values represent the effective perceptual influence
+of each structural dimension.
+
+---
+
+# 5 Prediction Modeling
+
+Prediction modeling estimates how predictable the music
+structure is for the listener.
+
+Prediction variables include:
+
+rhythm_predictability  
+melody_predictability  
+arrangement_predictability  
+
+Prediction success produces **reward pulses**.
+
+Prediction failure produces **prediction_error**.
+
+Repeated prediction error suppresses reward accumulation.
+
+---
+
+# 6 Reward Generation
+
+Reward pulses represent successful confirmation of
+listener expectations.
+
+Typical reward triggers include:
+
+• melodic resolution  
 • motif repetition  
-• melodic contour  
-• melodic stability  
+• rhythmic drops  
+• phrase closure  
+• harmonic cadence  
 
-Role:
+Each reward event generates a **reward_pulse**.
 
-Melody confirmation can generate strong reward pulses.
-
----
-
-## rhythm_signal
-
-Represents rhythmic clarity and temporal propulsion.
-
-Examples:
-
-• beat stability  
-• groove strength  
-• tempo clarity  
-
-Role:
-
-Rhythm contributes to sustained engagement.
+Reward pulses accumulate during listening.
 
 ---
 
-## timbre_signal
+# 7 Reward Density Normalization
 
-Represents sonic texture characteristics.
+Reward density measures how frequently reward pulses
+occur during listening.
 
-Examples:
+To ensure fair comparison across tracks of different lengths,
+MPM normalizes reward density by time.
 
-• spectral brightness  
-• sound density  
-• texture stability  
+Previous approximation:
 
-Role:
+reward_density = reward_pulse / track
 
-Timbre is typically the earliest perceptual signal.
+Updated normalization:
 
-Extreme timbre characteristics may trigger early rejection.
+track_duration_minutes = track_duration_seconds / 60
 
----
+reward_density = reward_pulse / track_duration_minutes
 
-## arrangement_signal
-
-Represents structural organization of the track.
-
-Examples:
-
-• phrase development  
-• section transitions  
-• structural variation  
-
-Role:
-
-Arrangement affects predictability and structural stability.
+This prevents long compositions from being artificially
+penalized due to longer duration.
 
 ---
 
-# 4 Prediction Variables
+# 8 Failure Detection
 
-Prediction variables describe how predictable
-the music structure is to the listener.
+MPM models several mechanisms that may suppress reward
+or disrupt engagement.
 
----
+These include:
 
-## rhythm_predictability
+timbre_gate  
+chaos_penalty  
+attention_decay  
+intro_latency  
+primary_reward_channel_collapse  
 
-Measures predictability of rhythmic patterns.
+These variables represent different types of listening failure.
 
----
+For example:
 
-## melody_predictability
+timbre_gate occurs when problematic sonic texture
+captures attention and blocks other perceptual signals.
 
-Measures predictability of melodic continuation.
+primary_reward_channel_collapse occurs when the
+listener's dominant reward channel fails to stabilize.
 
----
-
-## arrangement_predictability
-
-Measures predictability of structural progression.
-
-Prediction confirmation generates reward pulses.
-
-Prediction failure produces prediction error.
+Failure mechanisms reduce effective reward accumulation.
 
 ---
 
-# 5 Reward Variables
+# 9 Structural Mode Detection
 
-Reward variables describe positive reinforcement
-generated during listening.
+Some tracks follow structural patterns that require
+special interpretation.
 
----
-
-## reward_density
-
-Frequency of reward pulses.
-
----
-
-## reward_peak_intensity
-
-Strength of the strongest reward event.
-
----
-
-## reward_variance
-
-Distribution variability of reward pulses.
-
-Balanced reward variance helps maintain engagement.
-
----
-
-# 6 Failure Variables
-
-Failure variables represent mechanisms
-that suppress reward generation.
-
----
-
-## timbre_veto
-
-Immediate rejection triggered by intolerable timbre.
-
----
-
-## chaos_penalty
-
-Structural instability that disrupts prediction.
-
-Examples:
-
-• chaotic arrangement  
-• unstable rhythm transitions  
-• unpredictable structure
-
----
-
-## intro_latency
-
-Delay before meaningful reward appears.
-
-Long intro latency may reduce listener engagement.
-
----
-
-# 7 Recommendation Variables
-
-Recommendation variables are used during
-final recommendation decisions.
-
----
-
-## reward_bank
-
-Accumulated reward potential.
-
----
-
-## IRBC
-
-Initial Reward Breakpoint Confidence.
-
-Measures probability that reward stabilizes early.
-
----
-
-## recommend_score
-
-Represents recommendation safety.
-
-Even tracks with moderate reward may receive low
-recommend scores if early failure risk is high.
-
----
-
-# 8 Personality Interaction
-
-MPM variables interact with listener personality weights.
+MPM uses proxy signals derived from Spotify Audio Features
+to detect structural modes.
 
 Example:
 
-melody_signal × Wm  
-rhythm_signal × Wr  
-timbre_signal × Wt  
-arrangement_signal × Wa
+orchestral_index =
+instrumentalness × (1 − danceability) × (1 − speechiness)
 
-These interactions simulate listener-specific perception.
+If:
 
----
+orchestral_index > 0.60
 
-# 9 Signal Source
+the track enters **orchestral structural mode**.
 
-MPM structural signals may be derived from
-low-level audio features.
-
-In the current MPM demo implementation,
-signals are derived from Spotify Audio Features.
-
-Spotify features are mapped into MPM signals
-through the signal mapping layer defined in:
-
-06b_MPM_signal_mapping.md
+In this mode, arrangement and melodic signals may
+dominate reward generation.
 
 ---
 
-# 10 Summary
+# 10 Reward Bank Accumulation
 
-MPM variables describe structural perception,
-prediction dynamics, reward generation,
-and failure mechanisms involved in music listening.
+MPM simulates the temporal experience of listening by
+accumulating reward signals across multiple timeline phases.
 
-These variables form the basis for the MPM inference engine.
+Reward accumulation is stored in four reward banks:
+
+intro_reward_bank  
+early_reward_bank  
+middle_reward_bank  
+late_reward_bank  
+
+Each bank represents reward generated during a
+different phase of the track.
+
+---
+
+# 11 Reward Bank Segmentation
+
+Reward banks are evaluated using deterministic
+time-based segmentation.
+
+Intro phase
+
+0 – 30 seconds
+
+Remaining track duration is divided equally
+into three phases.
+
+remaining_time = total_duration − 30
+
+phase_length = remaining_time / 3
+
+early phase
+
+30 – (30 + phase_length)
+
+middle phase
+
+(30 + phase_length) – (30 + 2 × phase_length)
+
+late phase
+
+(30 + 2 × phase_length) – total_duration
+
+Reward signals generated during each window
+contribute to the corresponding reward bank.
+
+---
+
+# 12 Intro Reward Bank Check (IRBC)
+
+The intro reward bank is used to evaluate
+early listener engagement.
+
+IRBC determines whether sufficient reward
+appears during the intro phase.
+
+If:
+
+intro_reward_bank < threshold
+
+the system assumes the track has weak
+early engagement.
+
+This reduces recommendation safety.
+
+Tracks with weak intros may still produce
+high total reward but are considered risky
+recommendations.
+
+---
+
+# 13 Recommendation Safety Evaluation
+
+Final recommendation decisions are based on:
+
+predicted_reward  
+recommend_score
+
+recommend_score integrates multiple risk factors:
+
+• IRBC failure  
+• timbre_gate  
+• chaos_penalty  
+• long intro latency  
+• reward drought
+
+Tracks with low recommend_score should not be
+recommended even if predicted reward is moderate.
+
+---
+
+# 14 Output Metrics
+
+The MPM inference system produces two main outputs.
+
+predicted_score
+
+Represents expected listener enjoyment.
+
+recommend_score
+
+Represents recommendation safety.
+
+Example interpretation:
+
+High predicted_score + low recommend_score
+
+→ good music but risky recommendation.
+
+High predicted_score + high recommend_score
+
+→ strong recommendation candidate.
+
+---
+
+# 15 Summary
+
+The MPM inference system simulates the human
+music listening process by modeling:
+
+structural perception  
+prediction dynamics  
+reward generation  
+engagement failure  
+temporal reward accumulation  
+
+By combining these mechanisms with listener
+personality weights, MPM predicts how a listener
+will experience musical structure.
+
+This allows the system to estimate both:
+
+listener reward compatibility  
+recommendation safety
