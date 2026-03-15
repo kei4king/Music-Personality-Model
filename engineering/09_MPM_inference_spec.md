@@ -79,6 +79,23 @@ Each signal is normalized to the range:
 
 ---
 
+# Structural Score
+
+Structural signals are aggregated using listener perception weights.
+
+structural_score =
+
+(Wm × melody_signal) +
+(Wr × rhythm_signal) +
+(Wt × timbre_signal) +
+(Wa × arrangement_signal)
+
+Range:
+
+1 ≤ structural_score ≤ 7
+
+---
+
 # 4 Personality Weight Interaction
 
 Listener personality determines how strongly each signal
@@ -161,6 +178,22 @@ Reward pulses accumulate during listening.
 
 ---
 
+# Reward Efficiency
+
+Reward efficiency evaluates how quickly reward events appear relative
+to the amount of musical buildup.
+
+reward_efficiency =
+
+reward_peak_intensity /
+(idle_intro_time + tension_build_duration + 1)
+
+reward_bonus =
+
+reward_efficiency × 1.2
+
+---
+
 # 7 Reward Density Normalization
 
 Reward density measures how frequently reward pulses
@@ -184,12 +217,34 @@ penalized due to longer duration.
 
 ---
 
+# Reward Variance
+
+Reward timing stability influences listener engagement.
+
+reward_events = [t1, t2, t3 ...]
+
+interval_i = t(i+1) − t(i)
+
+μ = mean(interval)
+
+σ = standard_deviation(interval)
+
+reward_variance = σ / μ
+
+variance_factor =
+
+1 / (1 + reward_variance)
+
+---
+
 # 8 Failure Detection
 
 MPM models two categories of failure mechanisms:
 
 perceptual failures  
 prediction failures
+
+---
 
 ### Perceptual Failure Detection
 
@@ -230,6 +285,30 @@ primary_reward_channel_collapse occurs when the
 listener's dominant reward channel fails to stabilize.
 
 Failure mechanisms reduce effective reward accumulation.
+
+---
+
+# Structural Chaos
+
+Structural chaos represents instability in musical structure.
+
+structural_chaos =
+
+0.5 × motif_replacement_rate +
+0.3 × rhythm_discontinuity +
+0.2 × structure_switching
+
+chaos_factor =
+
+1 − α × structural_chaos
+
+Recommended value:
+
+α ≈ 0.5
+
+Range:
+
+0.5 ≤ chaos_factor ≤ 1
 
 ---
 
@@ -338,7 +417,7 @@ IRBC failure also reduces predicted_score.
 
 ---
 
-## Primary Reward Channel Stability (PRCS)
+# 13 Primary Reward Channel Stability (PRCS)
 
 Definition
 
@@ -366,7 +445,30 @@ reward = reward × (0.6 + 0.4 × PRCS)
 
 ---
 
-# 13 Recommendation Safety Evaluation
+# 14 Final Score Model
+
+The final predicted score is computed as:
+
+final_score =
+
+(
+structural_score
++ reward_bonus
+)
+× variance_factor
+× chaos_factor
+
+− intro_penalty
+− timbre_penalty
+− drought_penalty
+
+Clamp:
+
+1 ≤ final_score ≤ 7
+
+---
+
+# 15 Recommendation Safety Evaluation
 
 Final recommendation decisions are based on:
 
@@ -386,7 +488,7 @@ recommended even if predicted reward is moderate.
 
 ---
 
-# 14 Output Metrics
+# 16 Output Metrics
 
 The MPM inference system produces two main outputs.
 
@@ -410,7 +512,7 @@ High predicted_score + high recommend_score
 
 ---
 
-# 15 Summary
+# 17 Summary
 
 The MPM inference system simulates the human
 music listening process by modeling:
