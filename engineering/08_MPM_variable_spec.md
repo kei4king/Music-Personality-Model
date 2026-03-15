@@ -1,6 +1,6 @@
 # MPM Variable Specification
 
-Version: v8.1  
+Version: v8.3  
 Layer: Engineering Layer
 
 ---
@@ -19,7 +19,7 @@ pipeline to estimate listener reward compatibility.
 
 Mathematical inference logic is defined separately in:
 
-08_MPM_inference_spec.md
+09_MPM_inference_spec.md
 
 ---
 
@@ -288,6 +288,53 @@ from other structural channels.
 
 ---
 
+## timbre_shock_index (TSI)
+
+Represents sudden loudness spikes that may trigger
+a timbre gate event.
+
+Definition:
+
+TSI ≈ estimated sudden loudness change
+
+In the current demo implementation,
+TSI is approximated using proxy signals
+derived from Spotify audio features.
+
+Role:
+
+Detect unexpected sonic shock events
+that may cause listener discomfort.
+
+TSI may trigger the timbre_gate mechanism.
+
+---
+
+## orchestral_index
+
+Detects orchestral structural mode
+
+Definition:
+
+orchestral_index =
+instrumentalness
+× (1 − danceability)
+× (1 − speechiness)
+
+Tracks with high orchestral_index
+are treated as orchestral structural mode.
+
+Typical threshold used in the demo:
+
+orchestral_index > 0.60
+
+Role:
+
+Correct structural signal interpretation
+for instrumental soundtrack music.
+
+---
+
 ## chaos_penalty
 
 Description
@@ -381,6 +428,14 @@ recommendation decision stage.
 Definition
 
 Represents accumulated reward signals during listening.
+
+To simulate the human concept of listening to music over time,
+the reward bank will consist of the following four parts:
+
+intro_reward_bank  
+early_reward_bank  
+middle_reward_bank  
+late_reward_bank
 
 Reward bank integrates:
 
