@@ -196,6 +196,14 @@ Recommendation safety is moderate due to limited reward potential.
 
 Recommendation systems may apply thresholds to select tracks.
 
+recommend_score =
+λ × predicted_score
++ μ × confidence
+
+where:
+
+λ + μ = 1
+
 Example policy:
 
 recommend_score > 0.6
