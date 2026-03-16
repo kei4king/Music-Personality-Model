@@ -243,6 +243,17 @@ Repeated prediction error reduces overall enjoyment.
 Reward variables represent the positive reinforcement
 generated during listening.
 
+intro_reward_bank
+front_reward_bank
+middle_reward_bank
+late_reward_bank
+
+Each reward bank accumulates reward events
+within a segment of the song.
+
+Range:
+0 – 100
+
 ---
 
 ## reward_pulse
@@ -359,6 +370,13 @@ seconds
 
 Failure variables represent mechanisms that suppress reward
 or disrupt engagement.
+
+---
+
+# collapse_event
+
+Condition:
+reward_density < drought_threshold
 
 ---
 
