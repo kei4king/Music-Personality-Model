@@ -68,10 +68,21 @@ into the range 0.0 – 1.0.
 melody_signal is estimated using the following mapping:
 
 melody_signal =
+w1 × melody_strength
++ w2 × melody_resolution
++ w3 × melody_predictability
 
-0.4 × valence  
-+ 0.3 × instrumentalness  
-+ 0.3 × (1 − speechiness)
+melody_strength
+
+Measures prominence of melodic contour.
+
+melody_resolution
+
+Measures strength of melodic closure.
+
+melody_predictability
+
+Measures probability of predicted pitch continuation.
 
 Interpretation:
 
