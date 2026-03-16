@@ -259,6 +259,8 @@ Signal Mapping
 ↓  
 MPM Inference  
 ↓  
+IRBC validation
+↓
 Recommendation Filter  
 ↓  
 Final Recommendations
