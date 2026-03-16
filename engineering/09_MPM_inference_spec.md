@@ -447,6 +447,35 @@ contribute to the corresponding reward bank.
 
 ---
 
+# Segment Reward Bank System
+
+Songs are evaluated using four temporal segments:
+
+Intro
+Front
+Middle
+Late
+
+Each segment accumulates reward in a reward bank.
+
+Segment reward:
+
+R_segment =
+α × reward_density
++ β × reward_peak
+− γ × reward_variance
+
+Each reward bank is clamped:
+
+0 ≤ R_segment ≤ 100
+
+Global reward is computed as:
+
+R_global =
+(R_intro + R_front + R_middle + R_late) / 4
+
+---
+
 # 12 Intro Reward Bank Check (IRBC)
 
 The intro reward bank is used to evaluate
@@ -459,7 +488,7 @@ IRBC failure also reduces predicted_score.
 
 If intro_reward_bank < threshold:
 
-predicted_score = predicted_score − IRBC_penalty
+predicted_score = 1 + 6 × normalize(R_global)y
 
 Recommended value:
 
@@ -475,6 +504,17 @@ high total reward but are considered risky
 recommendations.
 
 IRBC failure also reduces predicted_score.
+
+IRBC prevents risky recommendations
+and acts as an early listening reward gate.
+
+IRBC fails if:
+
+R_intro < intro_safety_threshold
+
+or
+
+collapse_event = True
 
 ---
 
